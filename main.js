@@ -8,14 +8,14 @@ buttonGetFibonacciNumber.addEventListener("click", () => {
 });
 
 function fibonacci(index) {
-  if (index <= 1) {
+  if (index <= 0) {
     return 0;
   }
 
   let prev = 0,
     curr = 1;
 
-  for (let i = 3; i <= index; i++) {
+  for (let i = 2; i <= index; i++) {
     [prev, curr] = [curr, prev + curr];
   }
 
