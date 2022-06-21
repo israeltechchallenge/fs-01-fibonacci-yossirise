@@ -1,8 +1,11 @@
-const fibonacci_index = 7,
-  fibonacci_number = fibonacci(fibonacci_index);
+const inputFibonacciIndex = document.querySelector(".fibonacci-index-input"),
+  buttonGetFibonacciNumber = document.querySelector(".get-fibonacci-number"),
+  fibonacciNumberOutput = document.querySelector(".fibonacci-number-output");
 
-document.querySelector(".fibonacci-index").textContent = fibonacci_index;
-document.querySelector(".fibonacci-number").textContent = fibonacci_number;
+buttonGetFibonacciNumber.addEventListener("click", () => {
+  const fibonacciNumber = fibonacci(inputFibonacciIndex.value);
+  fibonacciNumberOutput.textContent = fibonacciNumber;
+});
 
 function fibonacci(index) {
   if (index <= 1) {

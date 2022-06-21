@@ -1,0 +1,14 @@
+:root {
+  font-size: 24px;
+  --bs-body-font-family: "Open Sans", sans-serif;
+}
+
+input.fibonacci-index-input {
+  width: 5em;
+  appearance: textfield;
+}
+
+input.fibonacci-index-input::-webkit-outer-spin-button,
+input.fibonacci-index-input::-webkit-inner-spin-button {
+  appearance: none;
+}
