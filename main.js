@@ -3,7 +3,7 @@ const inputFibonacciIndex = document.querySelector(".fibonacci-index-input"),
   fibonacciNumberOutput = document.querySelector(".fibonacci-number-output");
 
 buttonGetFibonacciNumber.addEventListener("click", () => {
-  const fibonacciNumber = fibonacci(inputFibonacciIndex.value);
+  const fibonacciNumber = fibonacci(+inputFibonacciIndex.value);
   fibonacciNumberOutput.textContent = fibonacciNumber;
 });
 
