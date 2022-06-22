@@ -3,21 +3,14 @@ const inputFibonacciIndex = document.querySelector(".fibonacci-index-input"),
   fibonacciNumberOutput = document.querySelector(".fibonacci-number-output");
 
 buttonGetFibonacciNumber.addEventListener("click", () => {
-  const fibonacciNumber = fibonacci(+inputFibonacciIndex.value);
-  fibonacciNumberOutput.textContent = fibonacciNumber;
+  const index = +inputFibonacciIndex.value;
+  fetchFibonacci(index).then((result) => {
+    fibonacciNumberOutput.textContent = result;
+  });
 });
 
-function fibonacci(index) {
-  if (index <= 0) {
-    return 0;
-  }
-
-  let prev = 0,
-    curr = 1;
-
-  for (let i = 2; i <= index; i++) {
-    [prev, curr] = [curr, prev + curr];
-  }
-
-  return curr;
+function fetchFibonacci(index) {
+  return fetch(`http://localhost:5050/fibonacci/${index}`)
+    .then((response) => response.json())
+    .then((data) => data.result);
 }
