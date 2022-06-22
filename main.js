@@ -3,7 +3,7 @@ const inputFibonacciIndex = document.querySelector(".fibonacci-index-input"),
   fibonacciNumberOutput = document.querySelector(".fibonacci-number-output");
 
 buttonGetFibonacciNumber.addEventListener("click", () => {
-  const fibonacciNumber = fibonacci(inputFibonacciIndex.value);
+  const fibonacciNumber = fibonacci(+inputFibonacciIndex.value);
   fibonacciNumberOutput.textContent = fibonacciNumber;
 });
 
@@ -12,12 +12,9 @@ function fibonacci(index) {
     return 0;
   }
 
-  let prev = 0,
-    curr = 1;
-
-  for (let i = 2; i <= index; i++) {
-    [prev, curr] = [curr, prev + curr];
+  if (index === 1) {
+    return 1;
   }
 
-  return curr;
+  return fibonacci(index - 1) + fibonacci(index - 2);
 }
