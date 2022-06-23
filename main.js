@@ -45,13 +45,13 @@ function reportError(error) {
 function styleOutput(ok) {
   const currentStyles = fibOutput.classList,
     normalStyles = ["text-body", "text-decoration-underline", "fw-bold"],
-    ErrorStyles = ["text-danger", "text-decoration-none", "fw-normal"];
+    errorStyles = ["text-danger", "text-decoration-none", "fw-normal"];
 
   if (ok) {
     currentStyles.add(...normalStyles);
-    currentStyles.remove(...ErrorStyles);
+    currentStyles.remove(...errorStyles);
   } else {
     currentStyles.remove(...normalStyles);
-    currentStyles.add(...ErrorStyles);
+    currentStyles.add(...errorStyles);
   }
 }
