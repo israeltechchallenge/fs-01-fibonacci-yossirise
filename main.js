@@ -1,16 +1,57 @@
-const inputFibonacciIndex = document.querySelector(".fibonacci-index-input"),
-  buttonGetFibonacciNumber = document.querySelector(".get-fibonacci-number"),
-  fibonacciNumberOutput = document.querySelector(".fibonacci-number-output");
+const fibInput = document.querySelector(".fibonacci-index-input"),
+  fibForm = document.querySelector("form"),
+  fibOutput = document.querySelector(".fibonacci-number-output");
 
-buttonGetFibonacciNumber.addEventListener("click", () => {
-  const index = +inputFibonacciIndex.value;
-  fetchFibonacci(index).then((result) => {
-    fibonacciNumberOutput.textContent = result;
-  });
+fibForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  fibForm.classList.add("was-validated");
+
+  if (!fibForm.checkValidity()) {
+    return;
+  }
+
+  fibOutput.replaceChildren();
+  styleOutput(true);
+  fibOutput.classList.add("spinner-border");
+  const index = +fibInput.value;
+
+  fetchFibonacci(index)
+    .finally(() => fibOutput.classList.remove("spinner-border"))
+    .then((result) => {
+      fibOutput.textContent = result;
+    })
+    .catch((error) => reportError(error));
 });
 
-function fetchFibonacci(index) {
-  return fetch(`http://localhost:5050/fibonacci/${index}`)
-    .then((response) => response.json())
-    .then((data) => data.result);
+async function fetchFibonacci(index) {
+  const response = await fetch(`http://localhost:5050/fibonacci/${index}`);
+
+  if (!response.ok) {
+    throw Error(await response.text());
+  }
+
+  return (await response.json()).result;
+}
+
+function reportError(error) {
+  styleOutput(false);
+  const errorElement = document.createElement("small");
+  errorElement.textContent = "Server Error: " + error.message;
+  fibOutput.append(errorElement);
+}
+
+function styleOutput(ok) {
+  const currentStyles = fibOutput.classList,
+    normalStyles = ["text-body", "text-decoration-underline", "fw-bold"],
+    ErrorStyles = ["text-danger", "text-decoration-none", "fw-normal"];
+
+  if (ok) {
+    currentStyles.add(...normalStyles);
+    currentStyles.remove(...ErrorStyles);
+  } else {
+    currentStyles.remove(...normalStyles);
+    currentStyles.add(...ErrorStyles);
+  }
 }

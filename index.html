@@ -19,20 +19,33 @@
     <script type="module" src="main.js"></script>
     <title>Fibonacci Calculator</title>
   </head>
-  <body class="container my-3 my-md-5">
-    <h1 class="mb-4 display-5">Fibonacci Calculator</h1>
-    <section class="calculator d-flex flex-wrap gap-3 align-items-center">
-      <label for="fibonacci-index-input">The Fibonacci of</label>
+  <body class="container my-5">
+    <h1 class="display-5 mb-4 mb-md-5">Fibonacci Calculator</h1>
+    <form
+      class="calculator d-grid align-items-center justify-content-start"
+      novalidate
+    >
+      <label for="fibonacci-index-input" class="form-label m-0 me-3">
+        The Fibonacci of
+      </label>
       <input
         id="fibonacci-index-input"
-        class="fibonacci-index-input form-control"
+        class="fibonacci-index-input form-control me-3"
         type="number"
         placeholder="#"
+        max="50"
       />
-      <button class="get-fibonacci-number btn btn-primary">is</button>
-      <span class="fibonacci-number-output fw-bold text-decoration-underline">
+      <button type="submit" class="get-fibonacci-number btn btn-primary me-3">
+        is
+      </button>
+      <span
+        class="fibonacci-number-output me-3 fw-bold text-decoration-underline"
+      >
       </span>
-    </section>
+      <div class="invalid-feedback alert alert-danger w-auto ms-auto me-3 mt-2">
+        <small>Can't be larger than 50</small>
+      </div>
+    </form>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
