@@ -1,5 +1,5 @@
-const fibInput = document.querySelector(".fibonacci-index-input"),
-  fibForm = document.querySelector("form"),
+const fibForm = document.querySelector(".calculator"),
+  fibInput = document.querySelector(".fibonacci-index-input"),
   fibOutput = document.querySelector(".fibonacci-number-output");
 
 fibForm.addEventListener("submit", (e) => {
