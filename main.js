@@ -18,23 +18,20 @@ fibForm.addEventListener("submit", (e) => {
   }
 });
 
-function handleSubmit() {
+async function handleSubmit() {
   styleOutput(true);
   fibOutput.replaceChildren();
   fibOutput.classList.add("spinner-border");
 
-  fetchFibonacci(fibInput.value)
-    .finally(() => {
-      fibOutput.classList.remove("spinner-border");
-    })
-    .then((result) => {
-      fibOutput.textContent = result;
-      loadResults();
-    })
-    .catch((error) => {
-      styleOutput(false);
-      reportError(error);
-    });
+  try {
+    fibOutput.textContent = await fetchFibonacci(fibInput.value);
+    loadResults();
+  } catch (error) {
+    styleOutput(false);
+    reportError(error);
+  } finally {
+    fibOutput.classList.remove("spinner-border");
+  }
 }
 
 async function fetchFibonacci(index) {
