@@ -2,7 +2,9 @@ const fibForm = document.querySelector(".calculator"),
   fibInput = document.querySelector(".fibonacci-index-input"),
   fibOutput = document.querySelector(".fibonacci-number-output"),
   resultsElement = document.querySelector(".results"),
-  resultSpinner = document.querySelector(".results .spinner-container");
+  resultSpinner = document.querySelector(
+    ".results-container .spinner-container"
+  );
 
 let results;
 loadResults();
@@ -55,17 +57,16 @@ async function loadResults() {
   results = await fetchResults();
 
   for (const result of results) {
-    const resultElement = document.createElement("div");
-    resultElement.classList.add("result");
+    const resultElement = document.createElement("li");
+    resultElement.classList.add("result", "list-group-item", "px-0");
+
     resultElement.innerHTML = `The Fibonnaci of <span class="fw-bold">${
       result.number
     }</span> is <span class="fw-bold">${
       result.result
-    }</span>. Calculated at: ${new Date(result.createdDate)}`;
+    }</span>. Calculated at: ${Date(result.createdDate)}`;
 
-    const hr = document.createElement("hr");
-
-    resultsElement.append(resultElement, hr);
+    resultsElement.append(resultElement);
   }
 
   resultSpinner.classList.remove("spinner-border");
