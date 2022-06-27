@@ -5,13 +5,12 @@ const fibForm = document.querySelector(".calculator"),
   resultSpinner = document.querySelector(
     ".results-container .spinner-container"
   );
-
 let results;
-loadResults();
+
+loadResults().then(sortResults).then(showResults);
 
 fibForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  e.stopPropagation();
 
   fibForm.classList.add("was-validated");
 
@@ -21,18 +20,52 @@ fibForm.addEventListener("submit", (e) => {
 });
 
 async function handleSubmit() {
-  styleOutput(true);
-  fibOutput.replaceChildren();
+  const useServer = document.querySelector(".save-calculation").checked;
+
+  resetOutput();
   fibOutput.classList.add("spinner-border");
 
+  if (useServer) {
+    await serverFibonacci(fibInput.value);
+  } else {
+    fibOutput.textContent = fibonacci(+fibInput.value);
+  }
+
+  fibOutput.classList.remove("spinner-border");
+
+  if (useServer) {
+    await loadResults();
+    sortResults();
+    showResults();
+  }
+}
+
+function resetOutput() {
+  styleOutput(true);
+  fibOutput.replaceChildren();
+}
+
+function fibonacci(index) {
+  if (index <= 0) {
+    return 0;
+  }
+
+  let prev = 0,
+    curr = 1;
+
+  for (let i = 2; i <= index; i++) {
+    [prev, curr] = [curr, prev + curr];
+  }
+
+  return curr;
+}
+
+async function serverFibonacci(index) {
   try {
-    fibOutput.textContent = await fetchFibonacci(fibInput.value);
-    loadResults();
+    fibOutput.textContent = await fetchFibonacci(index);
   } catch (error) {
     styleOutput(false);
     reportError(error);
-  } finally {
-    fibOutput.classList.remove("spinner-border");
   }
 }
 
@@ -47,15 +80,19 @@ async function fetchFibonacci(index) {
 }
 
 async function fetchResults() {
+  resultSpinner.classList.add("spinner-border");
   const response = await fetch("http://localhost:5050/getFibonacciResults");
+  resultSpinner.classList.remove("spinner-border");
 
   return (await response.json()).results;
 }
 
 async function loadResults() {
-  resultSpinner.classList.add("spinner-border");
   results = await fetchResults();
+}
 
+function showResults() {
+  resultsElement.replaceChildren();
   for (const result of results) {
     const resultElement = document.createElement("li");
     resultElement.classList.add("result", "list-group-item", "px-0");
@@ -64,12 +101,14 @@ async function loadResults() {
       result.number
     }</span> is <span class="fw-bold">${
       result.result
-    }</span>. Calculated at: ${Date(result.createdDate)}`;
+    }</span>. Calculated at: ${new Date(result.createdDate)}`;
 
     resultsElement.append(resultElement);
   }
+}
 
-  resultSpinner.classList.remove("spinner-border");
+function sortResults() {
+  results.sort((a, b) => b.createdDate - a.createdDate);
 }
 
 function reportError(error) {

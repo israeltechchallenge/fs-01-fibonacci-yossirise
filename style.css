@@ -19,3 +19,7 @@ input.fibonacci-index-input::-webkit-inner-spin-button {
 .calculator .invalid-feedback {
   grid-column: 1 / 3;
 }
+
+.calculator .save-calculation-container {
+  grid-column: 1 / 5;
+}
