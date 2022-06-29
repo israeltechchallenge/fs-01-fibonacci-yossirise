@@ -35,6 +35,7 @@
         placeholder="#"
         min="1"
         max="50"
+        required
       />
       <button type="submit" class="get-fibonacci-number btn btn-primary me-3">
         is
@@ -43,7 +44,9 @@
         class="fibonacci-number-output me-3 fw-bold text-decoration-underline"
       >
       </span>
-      <div class="invalid-feedback alert alert-danger w-auto ms-auto me-3 mt-2 mb-0 py-1 px-2">
+      <div
+        class="invalid-feedback alert alert-danger w-auto ms-auto me-3 mt-2 mb-0 py-1 px-2"
+      >
         <small>Enter an integer between 1 and 50</small>
       </div>
       <div class="save-calculation-container mt-3">
@@ -52,10 +55,28 @@
       </div>
     </form>
     <section class="results-container mt-5">
-      <div class="d-flex align-items-center mb-4">
+      <div class="d-flex align-items-center mb-2">
         <h2 class="display-5 me-3">Results</h2>
         <span class="spinner-container"></span>
       </div>
+      <button
+        class="sort-by-button btn btn-sm dropdown-toggle mb-4"
+        type="button"
+        data-bs-toggle="dropdown"
+        data-bs-offset="0,7"
+      >
+        <span class="me-4">Sort by</span>
+      </button>
+      <ul class="sort-by-list dropdown-menu">
+        <li>
+          <button class="dropdown-item" type="button">Number asc.</button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button">Number dec.</button>
+        </li>
+        <li><button class="dropdown-item" type="button">Date asc.</button></li>
+        <li><button class="dropdown-item" type="button">Date dec.</button></li>
+      </ul>
       <ul class="results list-group list-group-flush"></ul>
     </section>
     <script

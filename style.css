@@ -23,3 +23,7 @@ input.fibonacci-index-input::-webkit-inner-spin-button {
 .calculator .save-calculation-container {
   grid-column: 1 / 5;
 }
+
+.sort-by-button {
+  background-color: #e6e6e6 !important;
+}

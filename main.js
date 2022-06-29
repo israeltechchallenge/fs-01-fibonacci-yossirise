@@ -4,7 +4,11 @@ const fibForm = document.querySelector(".calculator"),
   resultsElement = document.querySelector(".results"),
   resultSpinner = document.querySelector(
     ".results-container .spinner-container"
-  );
+  ),
+  sortByButton = document.querySelector(".sort-by-button"),
+  sortByList = document.querySelector(".sort-by-list"),
+  currSort = { by: "createdDate", order: -1 };
+
 let results;
 
 loadResults().then(sortResults).then(showResults);
@@ -107,8 +111,18 @@ function showResults() {
   }
 }
 
+sortByList.addEventListener("click", (e) => {
+  const sortText = e.target.textContent;
+
+  currSort.by = sortText.slice(0, 6) === "Number" ? "number" : "createdDate";
+  currSort.order = sortText.slice(-4) === "asc." ? 1 : -1;
+
+  sortResults();
+  showResults();
+});
+
 function sortResults() {
-  results.sort((a, b) => b.createdDate - a.createdDate);
+  results.sort((a, b) => currSort.order * (a[currSort.by] - b[currSort.by]));
 }
 
 function reportError(error) {
