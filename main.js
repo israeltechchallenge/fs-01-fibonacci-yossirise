@@ -100,15 +100,14 @@ async function fetchFibonacci(index) {
 }
 
 async function fetchResults() {
-  resultSpinner.classList.add("spinner-border");
   const response = await fetch("http://localhost:5050/getFibonacciResults");
-  resultSpinner.classList.remove("spinner-border");
-
   return (await response.json()).results;
 }
 
 async function loadResults() {
+  resultSpinner.classList.add("spinner-border");
   results = await fetchResults();
+  resultSpinner.classList.remove("spinner-border");
 }
 
 function showResults() {
