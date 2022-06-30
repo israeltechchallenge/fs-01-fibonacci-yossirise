@@ -5,8 +5,7 @@ const fibForm = document.querySelector(".calculator"),
   resultSpinner = document.querySelector(
     ".results-container .spinner-container"
   ),
-  sortByButton = document.querySelector(".sort-by-button"),
-  sortByList = document.querySelector(".sort-by-list"),
+  sortBySelect = document.querySelector(".sort-by-select"),
   currSort = { by: "createdDate", order: -1 };
 
 let results;
@@ -23,21 +22,17 @@ fibForm.addEventListener("submit", (e) => {
   }
 });
 
-sortByList.addEventListener("click", (e) => {
-  const sortText = e.target.textContent;
+sortBySelect.addEventListener("change", (e) => {
+  const newSort = JSON.parse(e.target.value);
+  Object.assign(currSort, newSort);
 
-  sortByButton.firstElementChild.textContent = sortText;
-
-  currSort.by = sortText.slice(0, 6) === "Number" ? "number" : "createdDate";
-  currSort.order = sortText.slice(-4) === "asc." ? 1 : -1;
-
-  sortResults();
+  sortResults(currSort);
   showResults();
 });
 
 async function init() {
   await loadResults();
-  sortResults();
+  sortResults(currSort);
   showResults();
 }
 
@@ -127,8 +122,8 @@ function showResults() {
   }
 }
 
-function sortResults() {
-  results.sort((a, b) => currSort.order * (a[currSort.by] - b[currSort.by]));
+function sortResults(sort) {
+  results.sort((a, b) => sort.order * (a[sort.by] - b[sort.by]));
 }
 
 function reportError(error) {

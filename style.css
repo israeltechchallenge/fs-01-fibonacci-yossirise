@@ -24,6 +24,6 @@ input.fibonacci-index-input::-webkit-inner-spin-button {
   grid-column: 1 / 5;
 }
 
-.sort-by-button {
-  background-color: #e6e6e6 !important;
+.sort-by-select {
+  background-color: #e6e6e6;
 }

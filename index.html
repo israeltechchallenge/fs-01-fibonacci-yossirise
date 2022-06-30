@@ -59,24 +59,13 @@
         <h2 class="display-5 me-3">Results</h2>
         <span class="spinner-container"></span>
       </div>
-      <button
-        class="sort-by-button btn btn-sm dropdown-toggle mb-4"
-        type="button"
-        data-bs-toggle="dropdown"
-        data-bs-offset="0,7"
-      >
-        <span class="me-4">Sort by</span>
-      </button>
-      <ul class="sort-by-list dropdown-menu">
-        <li>
-          <button class="dropdown-item" type="button">Number asc.</button>
-        </li>
-        <li>
-          <button class="dropdown-item" type="button">Number dec.</button>
-        </li>
-        <li><button class="dropdown-item" type="button">Date asc.</button></li>
-        <li><button class="dropdown-item" type="button">Date dec.</button></li>
-      </ul>
+      <select class="sort-by-select form-select form-select-sm mb-4 w-auto">
+        <option selected hidden>Sort by</option>
+        <option value='{"by":"number","order":1}'>Number asc.</option>
+        <option value='{"by":"number","order":-1}'>Number dec.</option>
+        <option value='{"by":"createdDate","order":1}'>Date asc.</option>
+        <option value='{"by":"createdDate","order":-1}'>Date dec.</option>
+      </select>
       <ul class="results list-group list-group-flush"></ul>
     </section>
     <script
