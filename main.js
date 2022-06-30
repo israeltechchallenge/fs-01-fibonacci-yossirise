@@ -11,7 +11,13 @@ const fibForm = document.querySelector(".calculator"),
 
 let results;
 
-loadResults().then(sortResults).then(showResults);
+init();
+
+async function init() {
+  await loadResults();
+  sortResults();
+  showResults();
+}
 
 fibForm.addEventListener("submit", (e) => {
   e.preventDefault();
