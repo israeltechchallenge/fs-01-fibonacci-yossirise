@@ -13,12 +13,6 @@ let results;
 
 init();
 
-async function init() {
-  await loadResults();
-  sortResults();
-  showResults();
-}
-
 fibForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -28,6 +22,24 @@ fibForm.addEventListener("submit", (e) => {
     handleSubmit();
   }
 });
+
+sortByList.addEventListener("click", (e) => {
+  const sortText = e.target.textContent;
+
+  sortByButton.firstElementChild.textContent = sortText;
+
+  currSort.by = sortText.slice(0, 6) === "Number" ? "number" : "createdDate";
+  currSort.order = sortText.slice(-4) === "asc." ? 1 : -1;
+
+  sortResults();
+  showResults();
+});
+
+async function init() {
+  await loadResults();
+  sortResults();
+  showResults();
+}
 
 async function handleSubmit() {
   const useServer = document.querySelector(".save-calculation").checked;
@@ -44,9 +56,7 @@ async function handleSubmit() {
   fibOutput.classList.remove("spinner-border");
 
   if (useServer) {
-    await loadResults();
-    sortResults();
-    showResults();
+    init();
   }
 }
 
@@ -103,6 +113,7 @@ async function loadResults() {
 
 function showResults() {
   resultsElement.replaceChildren();
+
   for (const result of results) {
     const resultElement = document.createElement("li");
     resultElement.classList.add("result", "list-group-item", "px-0");
@@ -116,16 +127,6 @@ function showResults() {
     resultsElement.append(resultElement);
   }
 }
-
-sortByList.addEventListener("click", (e) => {
-  const sortText = e.target.textContent;
-
-  currSort.by = sortText.slice(0, 6) === "Number" ? "number" : "createdDate";
-  currSort.order = sortText.slice(-4) === "asc." ? 1 : -1;
-
-  sortResults();
-  showResults();
-});
 
 function sortResults() {
   results.sort((a, b) => currSort.order * (a[currSort.by] - b[currSort.by]));
