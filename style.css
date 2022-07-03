@@ -1,0 +1,29 @@
+:root {
+  --bs-body-font-family: "Open Sans", sans-serif;
+}
+
+input.fibonacci-index-input {
+  width: 5em;
+  appearance: textfield;
+}
+
+.calculator {
+  grid-template-columns: repeat(4, auto);
+}
+
+input.fibonacci-index-input::-webkit-outer-spin-button,
+input.fibonacci-index-input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+.calculator .invalid-feedback {
+  grid-column: 1 / 3;
+}
+
+.calculator .save-calculation-container {
+  grid-column: 1 / 5;
+}
+
+.sort-by-select {
+  background-color: #e6e6e6;
+}
